@@ -1,16 +1,22 @@
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
+import PlannerPage from './pages/PlannerPage';
+import RecipesPage from './pages/RecipesPage.tsx';
 import HealthCheck from './HealthCheck';
 
 function App() {
   return (
-    <div className="p-4 bg-slate-100">
-      <HealthCheck />
-      <h1 className="text-2xl font-bold text-blue-600">
-        Lazy Girl App
-      </h1>
-      <p className="mt-2">Another styled text with tailwind</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="/planner" replace />} />
+        <Route path="planner" element={<PlannerPage />} />
+        <Route path="recipes" element={<RecipesPage />} />
+        
+        {/* Health check for debugging connectivity */}
+        <Route path="health" element={<HealthCheck />} />
+      </Route>
+    </Routes>
   );
 }
 
 export default App;
-
