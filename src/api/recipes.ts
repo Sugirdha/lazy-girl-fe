@@ -14,15 +14,15 @@ export type CreateRecipeInput = {
     effortLevel: Recipe['effortLevel'];
 }
 
-export function getRecipes() {
+function getRecipes() {
     return apiGet<Recipe[]>('/recipes');
 }
 
-export function getRecipeById(id: number) {
+function getRecipeById(id: number) {
     return apiGet<Recipe>(`/recipes/${id}`);
 }
 
-export function createRecipe(input: CreateRecipeInput) {
+function createRecipe(input: CreateRecipeInput) {
     return apiPost<CreateRecipeInput, Recipe>('/recipes', input);
 }
 
