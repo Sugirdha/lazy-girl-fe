@@ -64,9 +64,6 @@ function PlannerPage() {
                       const value = event.target.value;
                       const recipeId =
                         value === '' ? null : Number.parseInt(value, 10);
-
-                      console.log('Updating slot', { day: day.day, slot: day.slot, recipeId });
-
                       updateSlot({
                         day: day.day,
                         slot: day.slot,
