@@ -48,25 +48,25 @@ function PlannerPage() {
       {plannerData && (
         <section className="mt-2">
           <div className="grid grid-cols-[80px,1fr] gap-3 text-sm">
-            {plannerData.days.map((day) => (
+            {plannerData.entries.map((entry) => (
               <div
-                key={`${day.day}-${day.slot}`}
+                key={`${entry.day}-${entry.slot}`}
                 className="contents"
               >
                 <div className="pt-2 text-right font-medium">
-                  {DAY_LABELS[day.day] ?? day.day}
+                  {DAY_LABELS[entry.day] ?? entry.day}
                 </div>
                 <div>
                   <select
                     className="w-full rounded border bg-white px-2 py-1 text-sm"
-                    value={day.recipeId != null ? day.recipeId.toString() : ''}
+                    value={entry.recipeId != null ? entry.recipeId.toString() : ''}
                     onChange={(event) => {
                       const value = event.target.value;
                       const recipeId =
                         value === '' ? null : Number.parseInt(value, 10);
                       updateSlot({
-                        day: day.day,
-                        slot: day.slot,
+                        day: entry.day,
+                        slot: entry.slot,
                         recipeId,
                       });
                     }}
@@ -81,8 +81,8 @@ function PlannerPage() {
                     ))}
                   </select>
                   <p className="mt-1 text-xs text-slate-500">
-                    {day.recipeId
-                      ? `Planned: ${findRecipeName(recipes, day.recipeId)}`
+                    {entry.recipeId
+                      ? `Planned: ${findRecipeName(recipes, entry.recipeId)}`
                       : 'Nothing planned yet'}
                   </p>
                 </div>
