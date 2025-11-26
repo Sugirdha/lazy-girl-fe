@@ -10,7 +10,7 @@ export type PlannerDay = {
 
 export type PlannerWeek = {
   startDate: string;
-  days: PlannerDay[];
+  entries: PlannerDay[];
 };
 
 export function getPlannerWeek(startDate: string) {
