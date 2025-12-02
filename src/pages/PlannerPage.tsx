@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { startOfToday, format } from 'date-fns';
+import { startOfToday, format, startOfWeek } from 'date-fns';
 import { usePlannerWeek, useUpdatePlannerSlot } from '../api/planner';
 import CalendarCarousel from '../components/planner/CalendarCarousel';
 import DayTitle from '../components/planner/DayTitle';
@@ -9,8 +9,13 @@ import { getCurrentWeekStartISO } from '../utils/dates';
 function PlannerPage() {
   const [selectedDate, setSelectedDate] = useState<Date>(startOfToday());
   
-  const { data: plannerData, isLoading: isPlannerLoading, isError: isPlannerError } = usePlannerWeek(getCurrentWeekStartISO(selectedDate)); // TODO: handle loading and error states
-  const { mutate: updateSlot } = useUpdatePlannerSlot(getCurrentWeekStartISO(selectedDate));
+  // Get the start of the week (Sunday) for the selected date
+  const weekStart = useMemo(() => {
+    return startOfWeek(selectedDate, { weekStartsOn: 0 }); // 0 = Sunday
+  }, [selectedDate]);
+
+  const { data: plannerData, isLoading: isPlannerLoading, isError: isPlannerError } = usePlannerWeek(getCurrentWeekStartISO(weekStart));
+  const { mutate: updateSlot } = useUpdatePlannerSlot(getCurrentWeekStartISO(weekStart));
 
   const mealSlots = useMemo(() => {
     const dayName = format(selectedDate, 'EEE').toLowerCase();
