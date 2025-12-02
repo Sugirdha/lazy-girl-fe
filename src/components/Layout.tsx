@@ -1,32 +1,17 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
+import Header from "./planner/Header";
 
 function Layout() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      <header className="border-b bg-white">
-        <div className="mx-auto max-w-4xl flex items-center justify-between px-4 py-3">
-          <div className="font-bold">Lazy Girl</div>
-          <nav className="flex gap-4 text-sm">
-            <NavLink
-              to="/planner"
-              className={({ isActive }) =>
-                isActive ? 'font-semibold underline' : ''
-              }>
-              Planner
-            </NavLink>
-            <NavLink
-              to="/recipes"
-              className={({ isActive }) =>
-                isActive ? 'font-semibold underline' : ''
-              }>
-              Recipes
-            </NavLink>
-          </nav>
+    <div className="min-h-screen bg-[#fbeee7] flex items-center justify-center">
+      <div className="relative w-full max-w-[420px] tablet:max-w-[480px] desktop:max-w-[600px] min-h-[640px] bg-white/30 rounded-[32px] overflow-hidden">
+        <div className="pt-12 px-6">
+          <Header title="LazyGirl" subtitle="Meal planner" />
         </div>
-      </header>
-      <main className="mx-auto max-w-4xl px-4 py-6">
-        <Outlet />
-      </main>
+        <main className="px-6 pb-6">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 }
