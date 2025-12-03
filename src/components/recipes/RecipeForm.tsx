@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Plus } from 'lucide-react';
-import EffortChip from '../planner/EffortChip';
+import EffortChip from '../common/EffortChip';
 import type { Recipe, CreateRecipeInput } from '../../api/recipes';
 
 interface RecipeFormProps {

@@ -1,6 +1,6 @@
 import React from 'react';
-import ButtonPill from './ButtonPill';
-import EffortChip from './EffortChip';
+import ButtonPill from '../common/ButtonPill';
+import EffortChip from '../common/EffortChip';
 import type { PlannerDay } from '../../api/planner';
 
 interface SlotCardProps {

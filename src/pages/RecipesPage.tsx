@@ -3,7 +3,7 @@ import { Plus, Trash2 } from 'lucide-react';
 import { useCreateRecipe, useEditRecipe, useDeleteRecipe, useRecipes } from '../api/recipes';
 import Modal from '../components/common/Modal';
 import RecipeForm from '../components/recipes/RecipeForm';
-import EffortChip from '../components/planner/EffortChip';
+import EffortChip from '../components/common/EffortChip';
 import type { Recipe as ApiRecipe } from '../api/recipes';
 import { ConfirmationModal } from '../components/common/ConfirmationModal';
 
