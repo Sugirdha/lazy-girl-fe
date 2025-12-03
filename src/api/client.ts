@@ -29,3 +29,41 @@ export async function apiPost<TBody, TResponse>(
 
     return response.json();
 }
+
+export async function apiPatch<TBody, TResponse>(
+    path: string,
+    body: TBody,
+) : Promise<TResponse> {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`PATCH ${path} failed with status ${response.status}: ${text}`);
+    }
+
+    return response.json();
+}
+
+export async function apiDelete<T>(
+    path: string,
+) : Promise<T> {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`DELETE ${path} failed with status ${response.status}: ${text}`);
+    }
+
+    return response.json();
+}
