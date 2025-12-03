@@ -1,5 +1,5 @@
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { apiGet, apiPost } from "./client";
+import { apiDelete, apiGet, apiPatch, apiPost } from "./client";
 
 export type Recipe = {
     id: number;
@@ -26,6 +26,15 @@ function createRecipe(input: CreateRecipeInput) {
     return apiPost<CreateRecipeInput, Recipe>('/recipes', input);
 }
 
+function editRecipe(input: Partial<CreateRecipeInput> & { id: number }) {
+    const { id, ...updateData } = input;
+    return apiPatch<Partial<CreateRecipeInput>, Recipe>(`/recipes/${id}`, updateData);
+}
+
+function deleteRecipe(id: number) {
+    return apiDelete(`/recipes/${id}`);
+}
+
 export function useRecipes() {
     return useQuery({
         queryKey: ['recipes'],
@@ -42,8 +51,28 @@ export function useRecipe(id: number) {
 
 export function useCreateRecipe() {
     const queryClient =  useQueryClient();
-    return useMutation ({
+    return useMutation({
         mutationFn: (input: CreateRecipeInput) => createRecipe(input),
+        onSuccess: () => {
+            void queryClient.invalidateQueries({ queryKey: ['recipes'] });
+        }
+    });
+}
+
+export function useEditRecipe() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (input: Partial<CreateRecipeInput> & { id: number }) => editRecipe(input),
+        onSuccess: () => {
+            void queryClient.invalidateQueries({ queryKey: ['recipes'] });
+        }
+    });
+}
+
+export function useDeleteRecipe() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id: number) => deleteRecipe(id),
         onSuccess: () => {
             void queryClient.invalidateQueries({ queryKey: ['recipes'] });
         }

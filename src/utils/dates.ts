@@ -1,10 +1,13 @@
-// TODO: consider user's preferred first day of week
-// This method currently assumes Sunday as the first day of the week
-export function getCurrentWeekStartISO(): string {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
-    const diffToSunday = now.getDate() - dayOfWeek;
-    const sunday = new Date(now.setDate(diffToSunday));
-    sunday.setHours(0, 0, 0, 0);
-    return sunday.toISOString().split('T')[0];
+/**
+ * Returns the date in YYYY-MM-DD format in local timezone
+ * @param date The date to format
+ * @returns String in YYYY-MM-DD format
+ */
+export function getCurrentWeekStartISO(date: Date): string {
+    // Get local date parts to handle timezone correctly
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
 }

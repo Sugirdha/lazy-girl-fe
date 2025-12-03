@@ -6,6 +6,9 @@ export type PlannerDay = {
   day: string;
   slot: string;
   recipeId: number | null;
+  recipeName: string | null;
+  totalCalories: number | null;
+  effortLevel:  "low" | "medium" | "high";
 };
 
 export type PlannerWeek = {
@@ -35,7 +38,6 @@ export function useUpdatePlannerSlot(startDate: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    // what the component passes in (no startDate)
     mutationFn: (input: Omit<UpdatePlannerSlotBody, 'startDate'>) =>
       apiPost<UpdatePlannerSlotBody, PlannerWeek>('/planner/week/slot', {
         ...input,
